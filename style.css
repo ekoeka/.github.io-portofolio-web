@@ -37,6 +37,6 @@ button {
 
 .dark-mode .kartu-saya {
     background-color: #1e1e1e;
-    border-color: #bb86fc;
-    color:white;
+    border-color: 2px solid #bb86fc;
+    color:white !important;
 }
