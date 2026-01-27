@@ -1,41 +1,106 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <title>Web Pertamaku</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <button onclick="ubahTema()" style="position:fixed; top:20px; right:20px;">🌙 Mode Gelap</button>
-    <div class="kartu-saya">
-      <h1>Halo, Saya Engineer!</h1>
-      <p>Mahasiswa Elektro yang hobi ngoding ESP32.</p>
-      <button onclick="alert('Halo! Email saya: mahasiswa@telkomuiversity.ac.id')">Kontak Saya</button>
+<head>
+    <title>Portofolio Engineer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <button id="tombol-tema" onclick="ubahTema()" class="tombol-floating"></button>
+
+    <div class="sosmed-container">
+        <a href="https://github.com/ekoeka" target="_blank" class="ikon-sosmed"><i class="fa-brands fa-github"></i></a>
+        <a href="https://linkedin.com/in/eka-hernanda-fulca/" target="_blank" class="ikon-sosmed"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:fulca.eka@gmail.com" class="ikon-sosmed"><i class="fa-solid fa-envelope"></i></a>
     </div>
 
-    <h2 style="text-align: center; margin-top: 50px">Proyek Saya</h2>
-
-    <div class="container-proyek">
-      <div class="kartu-saya">
-        <h3>Monitoring Suhu</h3>
-        <p>IoT dengan DHT11 & ESP32</p>
-        <button>Cek Kode</button>
-      </div>
-      <div class="kartu-saya">
-        <h3>Robot Line Follower</h3>
-        <p>Robot analog tanpa koding</p>
-        <button onclick="window.open('https://github.com/ekoeka','_blank')">Lihat Github</button>
-      </div>
-      <div class="kartu-saya">
-        <h3>Smart Home</h3>
-        <p>Kontrol lampu via web</p>
-        <button>Cek Kode</button>
-      </div>
+    <div class="container-pusat">
+        <div class="kartu-profile">
+            <div class="info-kiri">
+                <h1>Halo,<br>Saya Eka! 👋</h1>
+                <p class="deskripsi">
+                    Mahasiswa Elektro & IoT Engineer.<br>
+                    Mengubah kopi menjadi kode dan alat canggih.
+                </p>
+            </div>
+            <div class="ornamen-kanan"></div>
+        </div>
     </div>
+
+    <h2 class="judul-bagian">Proyek Terbaru</h2>
+    <div id="wadah-proyek" class="container-proyek">
+        <p>Memuat data...</p>
+    </div>
+
     <script>
-      function ubahTema() {
-        var element = document.body;
-        element.classList.toggle("dark-mode");
-      }
+        // 1. TEMA
+        function updateTombol() {
+            const btn = document.getElementById("tombol-tema");
+            if (document.body.classList.contains("dark-mode")) {
+                btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
+            } else {
+                btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
+            }
+        }
+        function ubahTema() {
+            document.body.classList.toggle("dark-mode");
+            updateTombol();
+        }
+        updateTombol();
+
+        // 2. LOAD DATA
+        const urlSheet = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?output=csv';
+
+        async function muatDaftarProyek() {
+            try {
+                const response = await fetch(urlSheet);
+                const text = await response.text();
+                const rows = text.split('\n').slice(1); 
+                const wadah = document.getElementById("wadah-proyek");
+                wadah.innerHTML = ""; 
+
+                let proyekList = [];
+                rows.forEach((row, index) => {
+                    if(row.trim() === "") return;
+                    const kolom = row.split(',');
+                    proyekList.push({
+                        id: index, // ID asli dari urutan sheet
+                        judul: kolom[0],
+                        deskripsi: kolom[1],
+                        tanggal: kolom[5] ? kolom[5].trim() : "2000-01-01",
+                        kategori: kolom[6]
+                    });
+                });
+
+                // Sort: Terbaru Paling Atas
+                proyekList.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+
+                proyekList.forEach(p => {
+                    let tagsHTML = "";
+                    if(p.kategori) {
+                        tagsHTML = '<div class="tag-container">';
+                        p.kategori.split('|').forEach(tag => tagsHTML += `<span class="tag">${tag.trim()}</span>`);
+                        tagsHTML += '</div>';
+                    }
+
+                    // ID asli dikirim ke detail.html agar datanya cocok
+                    wadah.innerHTML += `
+                        <div class="kartu-proyek">
+                            <div class="ikon-proyek"><i class="fa-solid fa-microchip"></i></div>
+                            <h3>${p.judul}</h3>
+                            <span class="tanggal-proyek">📅 ${p.tanggal}</span>
+                            <p>${p.deskripsi}</p>
+                            ${tagsHTML}
+                            <a href="detail.html?id=${p.id}" class="tombol-buka">Lihat Detail</a>
+                        </div>
+                    `;
+                });
+            } catch (e) { console.log(e); }
+        }
+        muatDaftarProyek();
     </script>
-  </body>
+</body>
 </html>

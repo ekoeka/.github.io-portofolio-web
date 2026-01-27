@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Detail Proyek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <button id="tombol-tema" onclick="ubahTema()" class="tombol-floating"></button>
+
+    <div style="max-width: 1000px; margin: 30px auto; padding: 0 20px; text-align: left;">
+        <a href="index.html" class="tombol-buka" style="width: auto; background: var(--card-bg); backdrop-filter: blur(5px);">
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+        </a>
+    </div>
+
+    <div class="container-pusat" style="padding-top: 0; min-height: auto;">
+        <div class="kartu-profile" style="max-width: 1000px; display: block;">
+            
+            <div class="layout-golden">
+                
+                <div class="area-teks">
+                    <div class="detail-header">
+                        <span id="detail-tanggal" class="tanggal-proyek" style="font-size: 1rem;">Loading...</span>
+                        <h1 id="detail-judul">Memuat Data...</h1>
+                        <div id="tech-stack-area" class="tag-container" style="margin-top: 15px;"></div>
+                    </div>
+                    <div id="detail-deskripsi">Mohon tunggu sebentar...</div>
+                </div>
+
+                <div class="area-visual">
+                    
+                    <div id="gallery-area" class="slider-container" style="display: none;">
+                        </div>
+
+                    <img id="detail-gambar-single" src="" style="width:100%; border-radius: 10px; display:none; margin-bottom: 15px;">
+                    
+                    <button id="btn-github" style="display:none; width:100%;" class="tombol-utama">
+                        <i class="fa-brands fa-github"></i> Buka Repository
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. TEMA
+        function updateTombol() {
+            const btn = document.getElementById("tombol-tema");
+            if (document.body.classList.contains("dark-mode")) {
+                btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
+            } else {
+                btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
+            }
+        }
+        function ubahTema() {
+            document.body.classList.toggle("dark-mode");
+            updateTombol();
+        }
+        updateTombol();
+
+        // 2. SLIDER LOGIC
+        let slideIndex = 1;
+        function plusSlides(n) { showSlides(slideIndex += n); }
+        function currentSlide(n) { showSlides(slideIndex = n); }
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide-img");
+            let dots = document.getElementsByClassName("dot");
+            if (slides.length === 0) return;
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+                slides[i].classList.remove("active");
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";  
+            slides[slideIndex-1].classList.add("active");
+            dots[slideIndex-1].className += " active";
+        }
+
+        // 3. LOAD DATA
+        const urlSheet = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?output=csv';
+
+        async function muatDetail() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if(id === null) return;
+
+            try {
+                const response = await fetch(urlSheet);
+                const text = await response.text();
+                const rows = text.split('\n').slice(1);
+                
+                let proyekList = [];
+                rows.forEach((row, index) => {
+                    if(row.trim() === "") return;
+                    const kolom = row.split(',');
+                    proyekList.push({ 
+                        raw: kolom, 
+                        tanggal: kolom[5] ? kolom[5].trim() : "2000-01-01" 
+                    });
+                });
+                
+                // Sorting Sesuai Index.html (Agar ID cocok)
+                proyekList.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
+                
+                // Cari Data Berdasarkan ID Asli (bukan urutan sort)
+                // Kita harus mencari item yang originalIndex-nya sama dengan ID dari URL
+                // TAPI: Karena di index.html kita kirim 'id' sebagai index setelah sort, kita pakai index sort juga disini.
+                const data = proyekList[id]; 
+
+                if(data) {
+                    const col = data.raw;
+                    document.getElementById("detail-judul").innerText = col[0];
+                    document.getElementById("detail-deskripsi").innerText = col[2].replace(/"/g, '');
+                    if(col[5]) document.getElementById("detail-tanggal").innerText = "📅 " + data.tanggal;
+
+                    // Tech Stack
+                    if(col[6]) {
+                        let tagsHTML = "";
+                        col[6].split('|').forEach(t => tagsHTML += `<span class="tag" style="margin-right:5px">${t.trim()}</span>`);
+                        document.getElementById("tech-stack-area").innerHTML = tagsHTML;
+                    }
+
+                    // --- IMAGE LOGIC (Single vs Slider) ---
+                    const rawImages = col[3];
+                    const galleryArea = document.getElementById("gallery-area");
+                    const singleImage = document.getElementById("detail-gambar-single");
+
+                    if (rawImages && rawImages.length > 5) {
+                        if (rawImages.includes('|')) {
+                            // MULTIPLE IMAGES -> SLIDER
+                            const images = rawImages.split('|');
+                            let slidesHTML = "";
+                            let dotsHTML = "";
+                            
+                            images.forEach((imgUrl, idx) => {
+                                slidesHTML += `<img class="slide-img" src="${imgUrl.trim()}">`;
+                                dotsHTML += `<span class="dot" onclick="currentSlide(${idx + 1})"></span>`;
+                            });
+
+                            galleryArea.innerHTML = slidesHTML + 
+                                '<a class="prev" onclick="plusSlides(-1)">&#10094;</a>' + 
+                                '<a class="next" onclick="plusSlides(1)">&#10095;</a>' + 
+                                `<div class="dots-container">${dotsHTML}</div>`;
+                            
+                            galleryArea.style.display = "block";
+                            singleImage.style.display = "none";
+                            showSlides(1); // Start Slider
+                        } else {
+                            // SINGLE IMAGE
+                            singleImage.src = rawImages.trim();
+                            singleImage.style.display = "block";
+                            galleryArea.style.display = "none";
+                        }
+                    }
+
+                    // Github Button
+                    const btn = document.getElementById("btn-github");
+                    if(col[4] && col[4].includes("http")) { 
+                        btn.style.display = "inline-block"; 
+                        btn.onclick = () => window.open(col[4]);
+                    }
+                }
+            } catch(e) { console.log(e); }
+        }
+        muatDetail();
+    </script>
+</body>
+</html>
