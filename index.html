@@ -1,106 +1,193 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <title>Portofolio Engineer</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - IoT Engineer</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <button id="tombol-tema" onclick="ubahTema()" class="tombol-floating"></button>
+    <button onclick="document.body.classList.toggle('dark-mode')" class="tombol-floating">
+        🌓 Mode
+    </button>
 
     <div class="sosmed-container">
-        <a href="https://github.com/ekoeka" target="_blank" class="ikon-sosmed"><i class="fa-brands fa-github"></i></a>
-        <a href="https://linkedin.com/in/eka-hernanda-fulca/" target="_blank" class="ikon-sosmed"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="mailto:fulca.eka@gmail.com" class="ikon-sosmed"><i class="fa-solid fa-envelope"></i></a>
+        <a href="#" class="ikon-sosmed"><i class="fa-brands fa-github"></i></a>
+        <a href="#" class="ikon-sosmed"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#" class="ikon-sosmed"><i class="fa-solid fa-envelope"></i></a>
     </div>
 
     <div class="container-pusat">
+        
         <div class="kartu-profile">
             <div class="info-kiri">
-                <h1>Halo,<br>Saya Eka! 👋</h1>
-                <p class="deskripsi">
-                    Mahasiswa Elektro & IoT Engineer.<br>
-                    Mengubah kopi menjadi kode dan alat canggih.
-                </p>
+                <h1>Halo, <br>Saya Eka! 👋</h1>
+                <p>Mahasiswa Teknik Elektro Telkom University.<br>Fokus pada IoT & Embedded AI.</p>
             </div>
-            <div class="ornamen-kanan"></div>
+            <div class="ornamen-kanan">☁️</div>
         </div>
-    </div>
 
-    <h2 class="judul-bagian">Proyek Terbaru</h2>
-    <div id="wadah-proyek" class="container-proyek">
-        <p>Memuat data...</p>
+        <h2 class="judul-bagian" style="margin-top:0;">Keahlian Teknis</h2>
+        <div class="skill-wrapper">
+            <div id="wadah-skill" class="skill-track">Memuat Skill...</div>
+        </div>
+
+        <div class="layout-dua-kolom">
+            <div class="kartu-info">
+                <h3 class="judul-kecil"><i class="fa-solid fa-graduation-cap"></i> Pendidikan</h3>
+                <div id="wadah-pendidikan">Memuat...</div>
+            </div>
+            <div class="kartu-info">
+                <h3 class="judul-kecil"><i class="fa-solid fa-certificate"></i> Course & Sertifikasi</h3>
+                <div id="wadah-course" class="course-grid">Memuat...</div>
+            </div>
+        </div>
+
+        <h2 class="judul-bagian">Proyek Terbaru</h2>
+        <div id="wadah-proyek" class="container-proyek">Memuat Proyek...</div>
+
+        <h2 class="judul-bagian">Jejak Karir & Prestasi</h2> <div class="layout-dua-kolom">
+            <div class="kartu-info">
+                <h3 class="judul-kecil"><i class="fa-solid fa-briefcase"></i> Pengalaman</h3>
+                <div id="wadah-experience">Memuat...</div>
+            </div>
+            <div class="kartu-info">
+                <h3 class="judul-kecil"><i class="fa-solid fa-trophy"></i> Prestasi</h3>
+                <div id="wadah-achievement">Memuat...</div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // 1. TEMA
-        function updateTombol() {
-            const btn = document.getElementById("tombol-tema");
-            if (document.body.classList.contains("dark-mode")) {
-                btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
-            } else {
-                btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
-            }
-        }
-        function ubahTema() {
-            document.body.classList.toggle("dark-mode");
-            updateTombol();
-        }
-        updateTombol();
+        // --- LINK CSV (LENGKAP) ---
+        const urlProyek      = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=0&single=true&output=csv';
+        const urlEdu         = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=311794023&single=true&output=csv';
+        const urlSkill       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=1750646490&single=true&output=csv';
+        const urlExperience  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=749679957&single=true&output=csv';
+        const urlAchievement = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=1658675797&single=true&output=csv';
+        const urlCourse      = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=1569371373&single=true&output=csv';
 
-        // 2. LOAD DATA
-        const urlSheet = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?output=csv';
+        // Helper 1: Warna Skill
+        const getColor = (v) => `hsl(${v * 1.2}, 80%, 45%)`;
 
-        async function muatDaftarProyek() {
+        // Helper 2: Logo Otomatis
+        const getLogo = (input) => {
+            if (!input || input.trim() === "") return "https://via.placeholder.com/40?text=IMG"; 
+            if (input.includes(".png") || input.includes(".jpg") || input.includes(".svg")) return input;
+            let domain = input.replace("https://", "").replace("http://", "").split("/")[0];
+            return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+        };
+
+        // 1. LOAD SKILLS
+        async function loadSkills() {
             try {
-                const response = await fetch(urlSheet);
-                const text = await response.text();
-                const rows = text.split('\n').slice(1); 
-                const wadah = document.getElementById("wadah-proyek");
-                wadah.innerHTML = ""; 
-
-                let proyekList = [];
-                rows.forEach((row, index) => {
-                    if(row.trim() === "") return;
-                    const kolom = row.split(',');
-                    proyekList.push({
-                        id: index, // ID asli dari urutan sheet
-                        judul: kolom[0],
-                        deskripsi: kolom[1],
-                        tanggal: kolom[5] ? kolom[5].trim() : "2000-01-01",
-                        kategori: kolom[6]
-                    });
-                });
-
-                // Sort: Terbaru Paling Atas
-                proyekList.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
-
-                proyekList.forEach(p => {
-                    let tagsHTML = "";
-                    if(p.kategori) {
-                        tagsHTML = '<div class="tag-container">';
-                        p.kategori.split('|').forEach(tag => tagsHTML += `<span class="tag">${tag.trim()}</span>`);
-                        tagsHTML += '</div>';
-                    }
-
-                    // ID asli dikirim ke detail.html agar datanya cocok
-                    wadah.innerHTML += `
-                        <div class="kartu-proyek">
-                            <div class="ikon-proyek"><i class="fa-solid fa-microchip"></i></div>
-                            <h3>${p.judul}</h3>
-                            <span class="tanggal-proyek">📅 ${p.tanggal}</span>
-                            <p>${p.deskripsi}</p>
-                            ${tagsHTML}
-                            <a href="detail.html?id=${p.id}" class="tombol-buka">Lihat Detail</a>
+                const resp = await fetch(urlSkill); const text = await resp.text();
+                const rows = text.split('\n').filter(r => r.trim() !== "").slice(1);
+                const wadah = document.getElementById('wadah-skill');
+                let html = '';
+                const createCard = (r) => {
+                    const c = r.split(','); if(c.length<3) return '';
+                    const level = parseInt(c[2]); const color = getColor(level);
+                    return `
+                    <div class="skill-card">
+                        <div class="skill-top-row">
+                            <div class="skill-icon"><i class="${c[3]?c[3].trim():'fa-solid fa-code'}"></i></div>
+                            <div class="skill-bar-container"><div class="skill-bar-fill" style="height:${level}%; background:${color}; box-shadow:0 0 10px ${color}"></div></div>
                         </div>
-                    `;
-                });
-            } catch (e) { console.log(e); }
+                        <div style="text-align:center"><span class="skill-name">${c[1]}</span><br><span class="skill-percent">${level}%</span></div>
+                    </div>`;
+                };
+                rows.forEach(r => html += createCard(r));
+                rows.forEach(r => html += createCard(r));
+                wadah.innerHTML = html;
+            } catch(e){}
         }
-        muatDaftarProyek();
+
+        // 2. LOAD EXP & ACH
+        async function loadExpAch() {
+            try {
+                const resp = await fetch(urlExperience); const text = await resp.text();
+                document.getElementById('wadah-experience').innerHTML = text.split('\n').filter(r => r.trim() !== "").slice(1).map(r => {
+                    const c = r.split(','); if(c.length<2) return '';
+                    const logo = getLogo(c[4] ? c[4].trim() : '');
+                    return `<div class="timeline-item">
+                        <div style="display:flex; gap:10px; align-items:center; margin-bottom:5px;">
+                            <img src="${logo}" class="logo-instansi" onerror="this.src='https://via.placeholder.com/40?text=Err'">
+                            <div><b>${c[0]}</b><br><small>${c[1]}</small></div>
+                        </div>
+                        <span style="font-size:0.8rem; opacity:0.7; font-family:'Space Mono'">${c[2]}</span>
+                        <p style="font-size:0.9rem; margin-top:5px;">${c[3]?c[3].replace(/"/g,''):''}</p>
+                    </div>`;
+                }).join('');
+            } catch(e){}
+
+            try {
+                const resp = await fetch(urlAchievement); const text = await resp.text();
+                document.getElementById('wadah-achievement').innerHTML = text.split('\n').filter(r => r.trim() !== "").slice(1).map(r => {
+                    const c = r.split(','); if(c.length<2) return '';
+                    const link = c[3] ? `<a href="${c[3]}" target="_blank" style="font-size:0.8rem; color:var(--icon-color)">Lihat Bukti ↗</a>` : '';
+                    return `<div style="display:flex; gap:10px; margin-bottom:15px;">
+                        <i class="fa-solid fa-award" style="font-size:1.5rem; color:#f1c40f; margin-top:5px;"></i>
+                        <div><b>${c[0]}</b><br><small>${c[1]} (${c[2]})</small><br>${link}</div>
+                    </div>`;
+                }).join('');
+            } catch(e){}
+        }
+
+        // 3. LOAD EDU & COURSE
+        async function loadEduCourse() {
+            try {
+                const respE = await fetch(urlEdu); const textE = await respE.text();
+                document.getElementById('wadah-pendidikan').innerHTML = textE.split('\n').filter(r => r.trim() !== "").slice(1).map(r => {
+                    const c = r.split(','); if(c.length<3) return '';
+                    const logo = getLogo(c[3]);
+                    return `<div class="timeline-item" style="display:flex; gap:10px; align-items:center;">
+                        <img src="${logo}" class="logo-instansi" onerror="this.src='https://via.placeholder.com/40?text=Err'">
+                        <div><small>${c[0]}</small><br><b>${c[1]}</b><br><span style="font-size:0.8rem">${c[2]}</span></div>
+                    </div>`;
+                }).join('');
+            } catch(e){}
+
+            try {
+                const respC = await fetch(urlCourse); const textC = await respC.text();
+                document.getElementById('wadah-course').innerHTML = textC.split('\n').filter(r => r.trim() !== "").slice(1).map(r => {
+                    const c = r.split(','); if(c.length<2) return '';
+                    const logo = getLogo(c[2]); 
+                    return `<div class="item-course">
+                        <img src="${logo}" class="logo-instansi" onerror="this.src='https://via.placeholder.com/40?text=Err'">
+                        <div><b>${c[0]}</b><br><span style="font-size:0.8rem">${c[1]}</span></div>
+                    </div>`;
+                }).join('');
+            } catch(e){}
+        }
+
+        // 4. LOAD PROYEK
+        async function loadProyek() {
+            try {
+                const resp = await fetch(urlProyek); const text = await resp.text();
+                const rows = text.split('\n').filter(r => r.trim() !== "").slice(1);
+                const wadah = document.getElementById('wadah-proyek'); wadah.innerHTML = '';
+                
+                rows.forEach((r, idx) => {
+                    const c = r.split(','); if(c.length<2) return;
+                    let tags = ''; if(c[6]) c[6].split('|').forEach(t=> tags+=`<span class="tag">${t.trim()}</span>`);
+                    
+                    wadah.innerHTML += `
+                    <div class="kartu-proyek">
+                        <h3>${c[0]}</h3>
+                        <span style="font-size:0.8rem; opacity:0.7; margin-bottom:10px;">📅 ${c[5]}</span>
+                        <p style="font-size:0.9rem; flex-grow:1;">${c[1]}</p>
+                        <div class="tag-container">${tags}</div>
+                        <a href="detail.html?id=${idx}" class="tombol-buka">Lihat Detail</a>
+                    </div>`;
+                });
+            } catch(e){}
+        }
+
+        loadSkills(); loadExpAch(); loadEduCourse(); loadProyek();
     </script>
 </body>
 </html>
