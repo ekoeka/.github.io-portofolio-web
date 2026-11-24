@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <button onclick="document.body.classList.toggle('dark-mode')" class="tombol-floating">🌓 Mode</button>
+    <button type="button" id="theme-toggle" class="tombol-floating" aria-label="Mode gelap" aria-pressed="false">🌓 Mode</button>
     
-    <div class="container-pusat">
+    <main class="container-pusat">
         <div style="text-align:left; margin-bottom:20px;">
             <a href="index.html" class="tombol-buka" style="display:inline-block; width:auto;">← Kembali</a>
         </div>
@@ -19,7 +19,7 @@
             <div class="layout-golden">
                 <div class="area-teks">
                     <div style="border-bottom:1px solid var(--icon-color); padding-bottom:15px; margin-bottom:15px;">
-                        <h1 id="judul" style="margin:0; font-size:2.5rem;">Loading...</h1>
+                        <h1 id="judul" aria-live="polite" style="margin:0; font-size:2.5rem;">Loading...</h1>
                         <span id="tanggal" style="opacity:0.7; font-family:'Space Mono'">...</span>
                         <div id="tags" class="tag-container" style="margin-top:10px;"></div>
                     </div>
@@ -28,7 +28,7 @@
 
                 <div class="area-visual">
                     <div id="slider-area" class="slider-container" style="display:none;"></div>
-                    <img id="single-img" src="" style="width:100%; border-radius:10px; display:none;">
+                    <img id="single-img" alt="" style="width:100%; border-radius:10px; display:none;">
                     
                     <div style="margin-top:20px;">
                         
@@ -48,8 +48,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
+    <script src="theme.js"></script>
     <script src="data.js"></script>
     <script src="detail.js"></script>
 </body>

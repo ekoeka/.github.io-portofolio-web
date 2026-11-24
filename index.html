@@ -9,17 +9,17 @@
 </head>
 <body>
 
-    <button onclick="document.body.classList.toggle('dark-mode')" class="tombol-floating">
+    <button type="button" id="theme-toggle" class="tombol-floating" aria-label="Mode gelap" aria-pressed="false">
         🌓 Mode
     </button>
 
-    <div class="sosmed-container">
-        <a href="#" class="ikon-sosmed"><i class="fa-brands fa-github"></i></a>
-        <a href="#" class="ikon-sosmed"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="#" class="ikon-sosmed"><i class="fa-solid fa-envelope"></i></a>
-    </div>
+    <nav class="sosmed-container" aria-label="Media sosial">
+        <a href="#" class="ikon-sosmed" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+        <a href="#" class="ikon-sosmed" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+        <a href="#" class="ikon-sosmed" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
+    </nav>
 
-    <div class="container-pusat">
+    <main class="container-pusat">
         
         <div class="kartu-profile">
             <div class="info-kiri">
@@ -30,37 +30,38 @@
         </div>
 
         <h2 class="judul-bagian" style="margin-top:0;">Keahlian Teknis</h2>
-        <div class="skill-wrapper">
-            <div id="wadah-skill" class="skill-track">Memuat Skill...</div>
+        <div class="skill-wrapper" tabindex="0" aria-label="Daftar keahlian">
+            <div id="wadah-skill" aria-live="polite" class="skill-track">Memuat Skill...</div>
         </div>
 
         <div class="layout-dua-kolom">
             <div class="kartu-info">
                 <h3 class="judul-kecil"><i class="fa-solid fa-graduation-cap"></i> Pendidikan</h3>
-                <div id="wadah-pendidikan">Memuat...</div>
+                <div id="wadah-pendidikan" aria-live="polite">Memuat...</div>
             </div>
             <div class="kartu-info">
                 <h3 class="judul-kecil"><i class="fa-solid fa-certificate"></i> Course & Sertifikasi</h3>
-                <div id="wadah-course" class="course-grid">Memuat...</div>
+                <div id="wadah-course" aria-live="polite" class="course-grid">Memuat...</div>
             </div>
         </div>
 
         <h2 class="judul-bagian">Proyek Terbaru</h2>
-        <div id="wadah-proyek" class="container-proyek">Memuat Proyek...</div>
+        <div id="wadah-proyek" aria-live="polite" class="container-proyek">Memuat Proyek...</div>
 
         <h2 class="judul-bagian">Jejak Karir & Prestasi</h2> <div class="layout-dua-kolom">
             <div class="kartu-info">
                 <h3 class="judul-kecil"><i class="fa-solid fa-briefcase"></i> Pengalaman</h3>
-                <div id="wadah-experience">Memuat...</div>
+                <div id="wadah-experience" aria-live="polite">Memuat...</div>
             </div>
             <div class="kartu-info">
                 <h3 class="judul-kecil"><i class="fa-solid fa-trophy"></i> Prestasi</h3>
-                <div id="wadah-achievement">Memuat...</div>
+                <div id="wadah-achievement" aria-live="polite">Memuat...</div>
             </div>
         </div>
 
-    </div>
+    </main>
 
+    <script src="theme.js"></script>
     <script src="data.js"></script>
     <script src="index.js"></script>
 </body>

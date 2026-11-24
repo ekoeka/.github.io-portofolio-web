@@ -8,10 +8,11 @@
 - Tautan baru menggunakan judul unik sebagai identitas yang bertahan saat baris dipindahkan. Judul duplikat memakai indeks dengan pemeriksaan judul; tautan indeks lama tetap didukung dan dapat bergeser. Kolom ID unik memerlukan persetujuan perubahan spreadsheet.
 - Tes lokal tersedia. Header dan data Google Sheets live serta tampilan browser masih perlu diverifikasi.
 
-## P1 — Usability dan aksesibilitas
+## P1 — Usability dan aksesibilitas (implementasi lokal)
 
-- Simpan pilihan tema dan tingkatkan aksesibilitas kontrol, navigasi keyboard, landmark, dan reduced motion.
-- Tinjau layout mobile, media proyek, carousel, dan tautan sosial placeholder bersama Eka.
+- Pilihan tema tersimpan; kontrol tema, landmark, fokus keyboard, status data, dan reduced motion ditingkatkan.
+- Jarak mobile dan media disesuaikan; pengujian browser dan pembaca layar masih diperlukan.
+- Tautan sosial masih placeholder dan memerlukan tujuan yang diverifikasi bersama Eka.
 
 ## P2 — Maintainability dan performa
 
