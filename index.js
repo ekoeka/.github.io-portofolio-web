@@ -20,9 +20,39 @@ function projectPriority(title) {
   const rank = patterns.findIndex(pattern => pattern.test(name));
   return rank < 0 ? patterns.length : rank;
 }
+function skillGroups(rows, hidden = false) {
+  const collection = element('div', 'skill-group-set');
+  if (hidden) collection.setAttribute('aria-hidden', 'true');
+  const groups = new Map();
+  for (const {row} of rows) {
+    const category = (row[0] || '').trim() || 'Lainnya';
+    if (!groups.has(category)) groups.set(category, []);
+    groups.get(category).push(row);
+  }
+  for (const [category, skills] of groups) {
+    const group = element('section', 'skill-group');
+    group.append(element('h3', 'skill-group-title', category));
+    const cards = element('div', 'skill-group-cards');
+    skills.forEach(row => cards.append(render('skills', row)));
+    group.append(cards);
+    collection.append(group);
+  }
+  return collection;
+}
 async function load(type, id) {
- const node = document.getElementById(id); node.textContent = 'Memuat...';
- try { const rows = await fetchCSV(sheetURL(type)); const valid = rows.map((row,index) => ({row,index})).filter(({row}) => validRow(type, row)); if (type === 'projects') valid.sort((a, b) => projectPriority(a.row[0]) - projectPriority(b.row[0]) || a.index - b.index); node.replaceChildren(); if (!valid.length) { node.textContent = 'Belum ada data.'; return; } for (const {row,index} of valid) node.append(render(type,row,index, type !== 'projects' || projectByTitle(row[0], rows) === index)); if (type === 'skills') for (const {row,index} of valid) { const copy = render(type,row,index); copy.setAttribute('aria-hidden','true'); node.append(copy); } }
- catch (_) { showRetry(node, () => load(type,id)); }
+  const node = document.getElementById(id);
+  node.textContent = 'Memuat...';
+  try {
+    const rows = await fetchCSV(sheetURL(type));
+    const valid = rows.map((row, index) => ({row, index})).filter(({row}) => validRow(type, row));
+    if (type === 'projects') valid.sort((a, b) => projectPriority(a.row[0]) - projectPriority(b.row[0]) || a.index - b.index);
+    node.replaceChildren();
+    if (!valid.length) { node.textContent = 'Belum ada data.'; return; }
+    if (type === 'skills') {
+      node.append(skillGroups(valid), skillGroups(valid, true));
+    } else {
+      for (const {row, index} of valid) node.append(render(type, row, index, type !== 'projects' || projectByTitle(row[0], rows) === index));
+    }
+  } catch (_) { showRetry(node, () => load(type, id)); }
 }
 [['projects','wadah-proyek'],['skills','wadah-skill'],['education','wadah-pendidikan'],['courses','wadah-course'],['experience','wadah-experience'],['achievements','wadah-achievement']].forEach(([type,id]) => load(type,id));

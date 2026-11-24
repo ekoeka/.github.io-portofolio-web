@@ -19,13 +19,20 @@
 
 - Hero, navigasi, kartu bento, showcase proyek, dan detail diperbarui dengan gaya engineering gelap serta mode terang.
 - Urutan prioritas diterapkan hanya pada judul proyek yang cocok dalam Sheets; data atau klaim proyek tidak ditambahkan.
-- Tes regresi lokal lulus; pemeriksaan visual browser dan data Sheets live masih diperlukan. Push pending, tanpa deployment.
+- Tes regresi lokal lulus. Verifikasi visual browser ditunda karena ruang penyimpanan VM terbatas dan Chromium tidak tersedia; data Sheets live juga belum diverifikasi. Push pending, tanpa deployment.
+
+## Phase 04 — Content Management (implementasi lokal)
+
+- Keahlian dikelompokkan menggunakan kolom pertama Skills yang sudah ada; arti header aktual masih perlu diverifikasi.
+- Panduan konten memetakan kolom yang dibaca kode dan menyediakan template proyek tanpa mengisi klaim.
+- Konfigurasi tautan CV, GitHub, LinkedIn, dan kontak disiapkan; tautan kosong disembunyikan sampai diverifikasi.
+- Konten dan struktur Sheets tidak diubah. Push pending.
 
 ## P1 — Usability dan aksesibilitas (implementasi lokal)
 
 - Pilihan tema tersimpan; kontrol tema, landmark, fokus keyboard, status data, dan reduced motion ditingkatkan.
 - Jarak mobile dan media disesuaikan; pengujian browser dan pembaca layar masih diperlukan.
-- Tautan sosial masih placeholder dan memerlukan tujuan yang diverifikasi bersama Eka.
+- Tautan profil dan kontak masih memerlukan tujuan yang diverifikasi bersama Eka.
 
 ## P2 — Maintainability dan performa (implementasi lokal)
 

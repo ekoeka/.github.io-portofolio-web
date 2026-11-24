@@ -8,7 +8,7 @@ Eka is an Electrical Engineering student at Telkom University, interested in emb
 
 - Static site using HTML, CSS, and vanilla JavaScript.
 - `index.html` lists portfolio sections; `detail.html` presents project details.
-- Google Sheets published as CSV is intended to remain the editable content source.
+- Google Sheets published as CSV is intended to remain the editable content source. The first Skills column is used as a display group; its actual sheet header and intent still need verification.
 - Six sheets/categories: Projects, Education, Skills, Experience, Achievements, Courses and Certifications.
 - Font Awesome is loaded from CDN.
 - Desired visual direction: professional, modern, restrained engineering aesthetic; black/blue/green palette; readable, responsive, light and dark modes.
