@@ -1,4 +1,11 @@
 // Shared CSV and fetch helpers for the static portfolio pages.
+const SHEET_BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=';
+const SHEET_IDS = Object.freeze({projects: 0, education: 311794023, skills: 1750646490, experience: 749679957, achievements: 1658675797, courses: 1569371373});
+function sheetURL(type) {
+  if (!Object.hasOwn(SHEET_IDS, type)) throw new Error('Unknown sheet');
+  return SHEET_BASE + SHEET_IDS[type] + '&single=true&output=csv';
+}
+
 function parseCSV(input) {
   if (typeof input !== 'string') throw new Error('CSV input must be text');
   const source = input.replace(/^\uFEFF/, '');
@@ -55,4 +62,4 @@ function validRow(type, row) {
   const required = type === 'skills' ? 1 : 0;
   return Array.isArray(row) && typeof row[required] === 'string' && !!row[required].trim();
 }
-if (typeof module !== 'undefined') module.exports = {parseCSV, fetchCSV, safeURL, projectIndex, projectByTitle, validRow};
+if (typeof module !== 'undefined') module.exports = {parseCSV, fetchCSV, safeURL, projectIndex, projectByTitle, validRow, sheetURL};

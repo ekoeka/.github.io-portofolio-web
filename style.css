@@ -24,10 +24,12 @@
 }
 
 body {
-    background-image: var(--bg-image); background-size: cover; background-attachment: fixed;
+    background-color: #e9eef2; background-image: var(--bg-image); background-size: cover; background-attachment: fixed;
     color: var(--text-color); font-family: var(--font-utama); margin: 0; transition: 0.5s;
     overflow-x: hidden; /* Mencegah scroll menyamping */
 }
+
+body.dark-mode { background-color: #000a14; }
 
 /* --- 2. LAYOUT UMUM & NAVIGASI --- */
 .container-pusat { max-width: 1000px; margin: 0 auto; padding: 40px 20px; text-align: center; }

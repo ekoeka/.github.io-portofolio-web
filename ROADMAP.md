@@ -14,10 +14,11 @@
 - Jarak mobile dan media disesuaikan; pengujian browser dan pembaca layar masih diperlukan.
 - Tautan sosial masih placeholder dan memerlukan tujuan yang diverifikasi bersama Eka.
 
-## P2 — Maintainability dan performa
+## P2 — Maintainability dan performa (implementasi lokal)
 
-- Tinjau aset eksternal, CDN, pemuatan gambar, cache, dan kegagalan aset.
-- Lanjutkan penyederhanaan kode bersama tanpa mengubah arsitektur statis.
+- URL sheet dipusatkan tanpa mengubah alamat atau kolom.
+- Logo dan gambar detail mendukung pemuatan tertunda serta penanganan gambar gagal; warna latar menjadi fallback.
+- Ketergantungan eksternal dan batas cache didokumentasikan. Perilaku browser dan ketersediaan aset live masih perlu diverifikasi.
 
 ## P3 — Search dan dokumentasi
 

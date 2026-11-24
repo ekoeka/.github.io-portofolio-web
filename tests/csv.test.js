@@ -25,3 +25,8 @@ assert.equal(validRow('skills', ['category', '']), false);
 assert.equal(safeURL('https://user:password@example.com'), '');
 assert.throws(() => parseCSV('a,b\n1,2,3'));
 console.log('Project identity and row validation tests passed');
+const {sheetURL} = require('../data.js');
+assert.match(sheetURL('projects'), /\?gid=0&single=true&output=csv$/);
+assert.match(sheetURL('skills'), /\?gid=1750646490&single=true&output=csv$/);
+assert.throws(() => sheetURL('toString'));
+console.log('Sheet URL tests passed');

@@ -1,11 +1,9 @@
-const base = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=';
-const urls = { projects: 0, education: 311794023, skills: 1750646490, experience: 749679957, achievements: 1658675797, courses: 1569371373 };
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
 function tags(value) { const box = el('div', 'tag-container'); (value || '').split('|').filter(Boolean).forEach(t => box.append(el('span', 'tag', t.trim()))); return box; }
 function logo(value) {
   const url = safeURL(value && (/^[a-z][a-z0-9+.-]*:/i.test(value) ? value : 'https://' + value));
   if (!url) return el('span');
-  const img = el('img', 'logo-instansi'); img.alt = ''; img.src = /\.(png|jpe?g|svg|webp)(\?|$)/i.test(url) ? url : 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(new URL(url).hostname) + '&sz=128'; return img;
+  const img = el('img', 'logo-instansi'); img.alt = ''; img.loading = 'lazy'; img.addEventListener('error', () => img.remove()); img.src = /\.(png|jpe?g|svg|webp)(\?|$)/i.test(url) ? url : 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(new URL(url).hostname) + '&sz=128'; return img;
 }
 function external(value, label) { const url = safeURL(value); if (!url) return el('span'); const a = el('a', '', label); a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; return a; }
 function render(type, c, index, uniqueTitle = true) {
@@ -18,7 +16,7 @@ function render(type, c, index, uniqueTitle = true) {
 }
 async function load(type, id) {
  const node = document.getElementById(id); node.textContent = 'Memuat...';
- try { const rows = await fetchCSV(base + urls[type] + '&single=true&output=csv'); const valid = rows.map((row,index) => ({row,index})).filter(({row}) => validRow(type, row)); node.replaceChildren(); if (!valid.length) { node.textContent = 'Belum ada data.'; return; } for (const {row,index} of valid) node.append(render(type,row,index, type !== 'projects' || projectByTitle(row[0], rows) === index)); if (type === 'skills') for (const {row,index} of valid) { const copy = render(type,row,index); copy.setAttribute('aria-hidden','true'); node.append(copy); } }
+ try { const rows = await fetchCSV(sheetURL(type)); const valid = rows.map((row,index) => ({row,index})).filter(({row}) => validRow(type, row)); node.replaceChildren(); if (!valid.length) { node.textContent = 'Belum ada data.'; return; } for (const {row,index} of valid) node.append(render(type,row,index, type !== 'projects' || projectByTitle(row[0], rows) === index)); if (type === 'skills') for (const {row,index} of valid) { const copy = render(type,row,index); copy.setAttribute('aria-hidden','true'); node.append(copy); } }
  catch (_) { node.replaceChildren(document.createTextNode('Data gagal dimuat. ')); const b = el('button','','Coba lagi'); b.type = 'button'; b.onclick = () => load(type,id); node.append(b); }
 }
 [['projects','wadah-proyek'],['skills','wadah-skill'],['education','wadah-pendidikan'],['courses','wadah-course'],['experience','wadah-experience'],['achievements','wadah-achievement']].forEach(([type,id]) => load(type,id));
