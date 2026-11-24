@@ -8,6 +8,13 @@
 - Tautan baru menggunakan judul unik sebagai identitas yang bertahan saat baris dipindahkan. Judul duplikat memakai indeks dengan pemeriksaan judul; tautan indeks lama tetap didukung dan dapat bergeser. Kolom ID unik memerlukan persetujuan perubahan spreadsheet.
 - Tes lokal tersedia. Header dan data Google Sheets live serta tampilan browser masih perlu diverifikasi.
 
+## Phase 02 — Refactoring & Code Organization (implementasi lokal)
+
+- Helper DOM untuk teks, tag, dan retry digunakan kedua halaman; konfigurasi sheet dan tema tetap terpusat.
+- Aturan mobile digabungkan dan warna latar masuk ke variabel tema tanpa mengubah breakpoint.
+- Tes regresi dengan DOM simulasi ditambahkan; verifikasi browser dan Sheets live masih diperlukan.
+- Push GitHub pending; tidak ada deployment.
+
 ## P1 — Usability dan aksesibilitas (implementasi lokal)
 
 - Pilihan tema tersimpan; kontrol tema, landmark, fokus keyboard, status data, dan reduced motion ditingkatkan.

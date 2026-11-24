@@ -1,6 +1,7 @@
 /* --- 1. VARIABEL TEMA (SIANG & MALAM) --- */
 :root {
     /* MODE SIANG (Clean & Fresh) */
+    --bg-color: #e9eef2;
     --bg-image: url('https://images.unsplash.com/photo-1621252179027-94459d27d3ee?q=80&w=2070');
     --text-color: #2d3436;
     --card-bg: rgba(255, 255, 255, 0.9); /* Lebih solid supaya tulisan jelas */
@@ -13,6 +14,7 @@
 
 .dark-mode {
     /* MODE MALAM (Cyberpunk/Neon) */
+    --bg-color: #000a14;
     --bg-image: url('https://img.freepik.com/free-vector/gradient-technological-background-with-elements_23-2148885070.jpg?w=1380');
     --text-color: #00f3ff;
     --card-bg: rgba(0, 10, 20, 0.95);
@@ -24,12 +26,11 @@
 }
 
 body {
-    background-color: #e9eef2; background-image: var(--bg-image); background-size: cover; background-attachment: fixed;
+    background-color: var(--bg-color); background-image: var(--bg-image); background-size: cover; background-attachment: fixed;
     color: var(--text-color); font-family: var(--font-utama); margin: 0; transition: 0.5s;
     overflow-x: hidden; /* Mencegah scroll menyamping */
 }
 
-body.dark-mode { background-color: #000a14; }
 
 /* --- 2. LAYOUT UMUM & NAVIGASI --- */
 .container-pusat { max-width: 1000px; margin: 0 auto; padding: 40px 20px; text-align: center; }
@@ -145,23 +146,6 @@ body.dark-mode { background-color: #000a14; }
 .tombol-jurnal { display: block; background: #00b894; color: white; text-align: center; padding: 10px; margin-top: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; transition:0.3s; }
 .tombol-jurnal:hover { background: #00a884; transform: translateY(-2px); }
 
-/* --- 9. RESPONSIF HP (MOBILE) --- */
-@media (max-width: 768px) {
-    .layout-dua-kolom { grid-template-columns: 1fr; }
-    
-    /* Pindahkan sosmed ke bawah profil untuk HP */
-    .sosmed-container { 
-        position: static; flex-direction: row; justify-content: center; 
-        margin: 20px 0; padding-bottom: 0; 
-    }
-    .sosmed-container::after { display: none; }
-    
-    .ornamen-kanan { display: none; }
-    .kartu-profile { flex-direction: column; text-align: center; padding: 40px 20px; }
-    .info-kiri { padding-right: 0; }
-    .info-kiri h1 { font-size: 2.5rem; }
-}
-
 /* --- 10. DETAIL PAGE LAYOUT --- */
 .layout-golden { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; align-items: start; text-align: left; }
 .area-visual { position: sticky; top: 100px; background: var(--card-bg); padding: 15px; border-radius: 15px; border: var(--card-border); }
@@ -169,17 +153,24 @@ body.dark-mode { background-color: #000a14; }
 .slide-img { width: 100%; height: 100%; object-fit: cover; display: none; }
 .slide-img.active { display: block; animation: fadeIn 0.5s; }
 @keyframes fadeIn { from {opacity:0} to {opacity:1} }
-@media (max-width: 768px) { .layout-golden { grid-template-columns: 1fr; } .area-visual { position: static; } }
-/* Keyboard access, small screens, and reduced motion. */
+/* Keyboard access and small screens. */
 :focus-visible { outline: 3px solid var(--icon-color); outline-offset: 4px; }
 *, *::before, *::after { box-sizing: border-box; }
 @media (max-width: 768px) {
     body { background-attachment: scroll; }
     .container-pusat { padding: 70px 16px 32px; }
     .judul-bagian { margin-top: 60px; margin-bottom: 25px; }
-    .layout-dua-kolom { gap: 20px; }
+    .layout-dua-kolom { grid-template-columns: 1fr; gap: 20px; }
+    .sosmed-container { position: static; flex-direction: row; justify-content: center; margin: 20px 0; padding-bottom: 0; }
+    .sosmed-container::after { display: none; }
+    .ornamen-kanan { display: none; }
+    .kartu-profile { flex-direction: column; text-align: center; padding: 40px 20px; }
+    .info-kiri { padding-right: 0; }
+    .info-kiri h1 { font-size: 2.5rem; }
     .kartu-info { height: auto; }
     .kartu-proyek { width: min(100%, 340px); }
+    .layout-golden { grid-template-columns: 1fr; }
+    .area-visual { position: static; }
     .area-visual img { max-width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
