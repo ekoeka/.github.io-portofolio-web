@@ -29,7 +29,6 @@ function parseCSV(input) {
   return rows.slice(1);
 }
 
-if (typeof module !== 'undefined') module.exports = { parseCSV };
 
 async function fetchCSV(url, timeout = 10000) {
   const controller = new AbortController();
@@ -45,4 +44,15 @@ function projectIndex(id, length) {
   if (!/^(0|[1-9]\d*)$/.test(id || '')) return -1;
   const number = Number(id); return Number.isSafeInteger(number) && number < length ? number : -1;
 }
-if (typeof module !== 'undefined') module.exports = {parseCSV, fetchCSV, safeURL, projectIndex};
+// A title is the only existing project field usable as an identifier without
+// changing the sheet schema. Ambiguous titles must never resolve silently.
+function projectByTitle(title, rows) {
+  if (!title || !title.trim()) return -1;
+  const matches = rows.map((row, index) => row[0] === title ? index : -1).filter(index => index >= 0);
+  return matches.length === 1 ? matches[0] : -1;
+}
+function validRow(type, row) {
+  const required = type === 'skills' ? 1 : 0;
+  return Array.isArray(row) && typeof row[required] === 'string' && !!row[required].trim();
+}
+if (typeof module !== 'undefined') module.exports = {parseCSV, fetchCSV, safeURL, projectIndex, projectByTitle, validRow};
