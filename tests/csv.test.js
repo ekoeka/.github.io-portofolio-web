@@ -1,0 +1,15 @@
+const assert = require('node:assert/strict');
+const { parseCSV } = require('../data.js');
+assert.deepEqual(parseCSV('\ufeffa,b,c\r\n"one,two","line1\nline2","a ""quote"""\r\n,,end'), [['one,two','line1\nline2','a "quote"'],['','','end']]);
+assert.deepEqual(parseCSV(''), []);
+assert.throws(() => parseCSV('a,b\n"unclosed,x'));
+assert.throws(() => parseCSV('a,b\n"x"bad,y'));
+console.log('CSV parser tests passed');
+const {safeURL, projectIndex, fetchCSV} = require('../data.js');
+assert.equal(safeURL('javascript:alert(1)'), '');
+assert.equal(safeURL('https://example.com/a'), 'https://example.com/a');
+assert.equal(projectIndex('../1', 3), -1);
+assert.equal(projectIndex('2', 3), 2);
+assert.equal(projectIndex('3', 3), -1);
+global.fetch = async () => ({ok: false, status: 500});
+fetchCSV('https://example.com').then(() => { throw new Error('expected failure'); }, () => console.log('Fetch and validation tests passed'));

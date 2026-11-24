@@ -32,15 +32,15 @@
                     
                     <div style="margin-top:20px;">
                         
-                        <a id="btn-github" href="#" target="_blank" class="tombol-buka" style="margin-top:10px; display:none;">
+                        <a id="btn-github" href="#" target="_blank" rel="noopener noreferrer" class="tombol-buka" style="margin-top:10px; display:none;">
                             <i class="fa-brands fa-github"></i> GitHub Repo
                         </a>
                         
-                        <a id="btn-youtube" href="#" target="_blank" class="tombol-youtube" style="display:none;">
+                        <a id="btn-youtube" href="#" target="_blank" rel="noopener noreferrer" class="tombol-youtube" style="display:none;">
                             <i class="fa-brands fa-youtube"></i> Tonton Demo
                         </a>
 
-                        <a id="btn-jurnal" href="#" target="_blank" class="tombol-jurnal" style="display:none;">
+                        <a id="btn-jurnal" href="#" target="_blank" rel="noopener noreferrer" class="tombol-jurnal" style="display:none;">
                             <i class="fa-solid fa-book-open"></i> Baca Dokumen
                         </a>
 
@@ -50,91 +50,7 @@
         </div>
     </div>
 
-    <script>
-        // --- LINK CSV TAB 1 (PROJECTS) SUDAH DIMASUKKAN DI SINI ---
-        const urlProyek = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSc3E3Xzu3FiwgF-f-HBLtafqvZr60_yGffzZFrs4wt_GQZaMym4xVYl9Sil2bA5giQvDaYcvOuimwq/pub?gid=0&single=true&output=csv';
-
-        async function muatDetail() {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id'); if(id===null) return;
-
-            try {
-                const resp = await fetch(urlProyek); 
-                const text = await resp.text();
-                // Filter baris kosong agar index akurat
-                const rows = text.split('\n').filter(r => r.trim() !== "").slice(1);
-                
-                const data = rows[id]; 
-                if(!data) return;
-
-                const c = data.split(',');
-
-                // --- 1. ISI TEKS ---
-                document.getElementById('judul').innerText = c[0];
-                document.getElementById('deskripsi').innerText = c[2].replace(/"/g, '');
-                document.getElementById('tanggal').innerText = c[5] ? "📅 " + c[5] : "";
-                
-                if(c[6] && c[6].trim() !== "") {
-                    let t = ''; c[6].split('|').forEach(tag => t+=`<span class="tag">${tag.trim()}</span>`);
-                    document.getElementById('tags').innerHTML = t;
-                }
-
-                // --- 2. LOGIKA GAMBAR (Kolom D / Index 3) ---
-                const rawImg = c[3];
-                const slider = document.getElementById('slider-area');
-                const single = document.getElementById('single-img');
-                
-                if (rawImg && rawImg.trim() !== "") {
-                    if(rawImg.includes('|')) {
-                        // Slider Logic
-                        const list = rawImg.split('|');
-                        let html = '';
-                        list.forEach((url, i) => html += `<img class="slide-img ${i===0?'active':''}" src="${url.trim()}">`);
-                        slider.innerHTML = html;
-                        slider.style.display = 'block';
-                        
-                        let idx = 0;
-                        setInterval(() => {
-                            const slides = document.querySelectorAll('.slide-img');
-                            if(slides.length>0) {
-                                slides[idx].classList.remove('active');
-                                idx = (idx + 1) % slides.length;
-                                slides[idx].classList.add('active');
-                            }
-                        }, 3000);
-                    } else {
-                        // Single Image
-                        single.src = rawImg.trim();
-                        single.style.display = 'block';
-                    }
-                }
-
-                // --- 3. LOGIKA TOMBOL ---
-
-                // GitHub
-                const btnGit = document.getElementById('btn-github');
-                if(c[4] && c[4].trim() !== "" && c[4].includes('http')) { 
-                    btnGit.href = c[4].trim(); 
-                    btnGit.style.display = 'block'; 
-                }
-                
-                // YouTube
-                const btnYt = document.getElementById('btn-youtube');
-                if(c[7] && c[7].trim() !== "" && (c[7].includes('youtube') || c[7].includes('youtu'))) { 
-                    btnYt.href = c[7].trim(); 
-                    btnYt.style.display = 'block'; 
-                }
-
-                // Jurnal / Tambahan
-                const btnJurnal = document.getElementById('btn-jurnal');
-                if(c[8] && c[8].trim() !== "" && c[8].includes('http')) {
-                    btnJurnal.href = c[8].trim();
-                    btnJurnal.style.display = 'block';
-                }
-
-            } catch(e) { console.log(e); }
-        }
-        muatDetail();
-    </script>
+    <script src="data.js"></script>
+    <script src="detail.js"></script>
 </body>
 </html>
