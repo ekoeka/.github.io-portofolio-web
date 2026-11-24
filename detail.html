@@ -8,17 +8,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <button type="button" id="theme-toggle" class="tombol-floating" aria-label="Mode gelap" aria-pressed="false">🌓 Mode</button>
+    <header class="site-header">
+        <a class="brand" href="index.html"><span class="brand-mark">E<span>.</span></span><span>EKA <small>ENGINEERING PORTFOLIO</small></span></a>
+        <nav class="main-nav" aria-label="Navigasi utama"><a href="index.html#proyek">Proyek</a><a href="index.html#keahlian">Keahlian</a><a href="index.html#perjalanan">Perjalanan</a></nav>
+        <button type="button" id="theme-toggle" class="tombol-floating" aria-label="Mode gelap" aria-pressed="true"><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i> Tema</button>
+    </header>
     
     <main class="container-pusat">
         <div style="text-align:left; margin-bottom:20px;">
-            <a href="index.html" class="tombol-buka" style="display:inline-block; width:auto;">← Kembali</a>
+            <a href="index.html" class="tombol-buka" style="display:inline-block; width:auto;">Kembali ke proyek</a>
         </div>
 
-        <div class="kartu-profile" style="display:block;">
+        <div class="kartu-profile">
             <div class="layout-golden">
                 <div class="area-teks">
-                    <div style="border-bottom:1px solid var(--icon-color); padding-bottom:15px; margin-bottom:15px;">
+                    <div style="border-bottom:1px solid var(--line); padding-bottom:15px; margin-bottom:15px;">
                         <h1 id="judul" aria-live="polite" style="margin:0; font-size:2.5rem;">Loading...</h1>
                         <span id="tanggal" style="opacity:0.7; font-family:'Space Mono'">...</span>
                         <div id="tags" class="tag-container" style="margin-top:10px;"></div>

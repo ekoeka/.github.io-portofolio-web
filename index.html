@@ -1,69 +1,58 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio - IoT Engineer</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eka — Electrical Engineering Portfolio</title>
+  <meta name="description" content="Portofolio Eka: eksplorasi embedded systems, IoT, dan teknologi rekayasa.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Eka, beranda"><span class="brand-mark">E<span>.</span></span><span>EKA <small>ENGINEERING PORTFOLIO</small></span></a>
+    <nav class="main-nav" aria-label="Navigasi utama"><a href="#proyek">Proyek</a><a href="#keahlian">Keahlian</a><a href="#perjalanan">Perjalanan</a></nav>
+    <button type="button" id="theme-toggle" class="tombol-floating" aria-label="Mode gelap" aria-pressed="true"><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i><span> Tema</span></button>
+  </header>
 
-    <button type="button" id="theme-toggle" class="tombol-floating" aria-label="Mode gelap" aria-pressed="false">
-        🌓 Mode
-    </button>
+  <main class="container-pusat">
+    <section class="hero-grid" aria-labelledby="hero-title">
+      <div class="hero-main panel">
+        <p class="eyebrow"><span class="accent-line"></span> ELECTRICAL ENGINEERING / PORTFOLIO</p>
+        <h1 id="hero-title">Ideas into<br><em>working systems.</em></h1>
+        <p class="hero-intro">Halo, saya <strong>Eka</strong> — mahasiswa Teknik Elektro Telkom University yang mengeksplorasi perangkat, sistem cerdas, dan software.</p>
+        <a class="primary-link" href="#proyek">Jelajahi proyek <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+        <div class="hero-foot"><span>ENGINEERING · COMPUTING · EXPLORATION</span><span>PORTFOLIO / EKA</span></div>
+      </div>
+      <aside class="hero-side panel" aria-label="Bidang fokus">
+        <div class="side-head"><span>AREA OF INTEREST</span><span class="side-symbol" aria-hidden="true">✳</span></div>
+        <p>Engineering across<br><strong>hardware & software.</strong></p>
+        <div class="focus-list"><span>Embedded Systems</span><span>IoT</span><span>FPGA</span><span>Artificial Intelligence</span><span>Computer Vision</span><span>Control Systems</span><span>Electronics</span><span>Software Development</span><span>Linux</span></div>
+        <div class="circuit" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+      </aside>
+    </section>
 
-    <nav class="sosmed-container" aria-label="Media sosial">
-        <a href="#" class="ikon-sosmed" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
-        <a href="#" class="ikon-sosmed" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
-        <a href="#" class="ikon-sosmed" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
-    </nav>
+    <section id="proyek" class="section-block" aria-labelledby="projects-title">
+      <div class="section-heading"><div><p class="eyebrow">SELECTED WORK / PROJECTS</p><h2 id="projects-title">Eksplorasi & proyek<span class="accent">.</span></h2></div><p>Ide, eksperimen, dan sistem yang terdokumentasi.</p></div>
+      <div id="wadah-proyek" aria-live="polite" class="container-proyek">Memuat proyek...</div>
+    </section>
 
-    <main class="container-pusat">
-        
-        <div class="kartu-profile">
-            <div class="info-kiri">
-                <h1>Halo, <br>Saya Eka! 👋</h1>
-                <p>Mahasiswa Teknik Elektro Telkom University.<br>Fokus pada IoT & Embedded AI.</p>
-            </div>
-            <div class="ornamen-kanan">☁️</div>
-        </div>
+    <section id="keahlian" class="section-block" aria-labelledby="skills-title">
+      <div class="section-heading"><div><p class="eyebrow">TOOLS / CAPABILITIES</p><h2 id="skills-title">Keahlian teknis<span class="accent">.</span></h2></div><p>Perangkat dan keterampilan dalam proses belajar.</p></div>
+      <div class="skill-wrapper panel" tabindex="0" aria-label="Daftar keahlian"><div id="wadah-skill" aria-live="polite" class="skill-track">Memuat keahlian...</div></div>
+    </section>
 
-        <h2 class="judul-bagian" style="margin-top:0;">Keahlian Teknis</h2>
-        <div class="skill-wrapper" tabindex="0" aria-label="Daftar keahlian">
-            <div id="wadah-skill" aria-live="polite" class="skill-track">Memuat Skill...</div>
-        </div>
-
-        <div class="layout-dua-kolom">
-            <div class="kartu-info">
-                <h3 class="judul-kecil"><i class="fa-solid fa-graduation-cap"></i> Pendidikan</h3>
-                <div id="wadah-pendidikan" aria-live="polite">Memuat...</div>
-            </div>
-            <div class="kartu-info">
-                <h3 class="judul-kecil"><i class="fa-solid fa-certificate"></i> Course & Sertifikasi</h3>
-                <div id="wadah-course" aria-live="polite" class="course-grid">Memuat...</div>
-            </div>
-        </div>
-
-        <h2 class="judul-bagian">Proyek Terbaru</h2>
-        <div id="wadah-proyek" aria-live="polite" class="container-proyek">Memuat Proyek...</div>
-
-        <h2 class="judul-bagian">Jejak Karir & Prestasi</h2> <div class="layout-dua-kolom">
-            <div class="kartu-info">
-                <h3 class="judul-kecil"><i class="fa-solid fa-briefcase"></i> Pengalaman</h3>
-                <div id="wadah-experience" aria-live="polite">Memuat...</div>
-            </div>
-            <div class="kartu-info">
-                <h3 class="judul-kecil"><i class="fa-solid fa-trophy"></i> Prestasi</h3>
-                <div id="wadah-achievement" aria-live="polite">Memuat...</div>
-            </div>
-        </div>
-
-    </main>
-
-    <script src="theme.js"></script>
-    <script src="data.js"></script>
-    <script src="ui.js"></script>
-    <script src="index.js"></script>
+    <section id="perjalanan" class="section-block" aria-labelledby="journey-title">
+      <div class="section-heading"><div><p class="eyebrow">BACKGROUND / LEARNING</p><h2 id="journey-title">Perjalanan<span class="accent">.</span></h2></div><p>Pendidikan, pengalaman, dan hal-hal yang dipelajari.</p></div>
+      <div class="bento-grid">
+        <article class="kartu-info"><div class="card-label">EDUCATION <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div><h3>Pendidikan</h3><div id="wadah-pendidikan" aria-live="polite">Memuat...</div></article>
+        <article class="kartu-info"><div class="card-label">EXPERIENCE <i class="fa-solid fa-briefcase" aria-hidden="true"></i></div><h3>Pengalaman</h3><div id="wadah-experience" aria-live="polite">Memuat...</div></article>
+        <article class="kartu-info"><div class="card-label">ACHIEVEMENTS <i class="fa-solid fa-trophy" aria-hidden="true"></i></div><h3>Prestasi</h3><div id="wadah-achievement" aria-live="polite">Memuat...</div></article>
+        <article class="kartu-info"><div class="card-label">CONTINUOUS LEARNING <i class="fa-solid fa-certificate" aria-hidden="true"></i></div><h3>Course & sertifikasi</h3><div id="wadah-course" aria-live="polite" class="course-grid">Memuat...</div></article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><span>EK<span class="accent">.</span> / ENGINEERING PORTFOLIO</span><nav class="sosmed-container" aria-label="Media sosial"><a href="#" class="ikon-sosmed" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a><a href="#" class="ikon-sosmed" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a><a href="#" class="ikon-sosmed" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></nav><span>BUILT FOR EXPLORATION</span></footer>
+  <script src="theme.js"></script><script src="data.js"></script><script src="ui.js"></script><script src="index.js"></script>
 </body>
 </html>

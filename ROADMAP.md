@@ -15,6 +15,12 @@
 - Tes regresi dengan DOM simulasi ditambahkan; verifikasi browser dan Sheets live masih diperlukan.
 - Push GitHub pending; tidak ada deployment.
 
+## Phase 03 — UI/UX Redesign (implementasi lokal)
+
+- Hero, navigasi, kartu bento, showcase proyek, dan detail diperbarui dengan gaya engineering gelap serta mode terang.
+- Urutan prioritas diterapkan hanya pada judul proyek yang cocok dalam Sheets; data atau klaim proyek tidak ditambahkan.
+- Tes regresi lokal lulus; pemeriksaan visual browser dan data Sheets live masih diperlukan. Push pending, tanpa deployment.
+
 ## P1 — Usability dan aksesibilitas (implementasi lokal)
 
 - Pilihan tema tersimpan; kontrol tema, landmark, fokus keyboard, status data, dan reduced motion ditingkatkan.

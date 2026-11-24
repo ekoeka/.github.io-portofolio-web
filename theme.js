@@ -1,8 +1,8 @@
 // Keep the selected theme across both static pages, even if storage is blocked.
 (() => {
   const button = document.getElementById('theme-toggle');
-  let dark = false;
-  try { dark = localStorage.getItem('portfolio-theme') === 'dark'; } catch (_) { /* Storage is optional. */ }
+  let dark = true;
+  try { dark = localStorage.getItem('portfolio-theme') !== 'light'; } catch (_) { /* Storage is optional. */ }
   function apply() {
     document.body.classList.toggle('dark-mode', dark);
     button.setAttribute('aria-pressed', String(dark));

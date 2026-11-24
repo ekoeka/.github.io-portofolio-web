@@ -13,9 +13,16 @@ function render(type, c, index, uniqueTitle = true) {
   if (type === 'achievements') { n = element('div','timeline-item'); n.append(element('b','',c[0]),element('br'),element('small','',`${c[1] || ''} (${c[2] || ''})`),element('br'),external(c[3],'Lihat Bukti ↗')); }
   return n;
 }
+// Only reorder rows already present in the sheet; unknown projects retain their order.
+function projectPriority(title) {
+  const name = title.toLowerCase();
+  const patterns = [/smart[\s_-]*plant/, /solar[\s_-]*tracker/, /cnn[\s_-]*fpga/, /esp32[\s_-]*s3[\s_-]*cam/, /cursed[\s_-]*signal/, /linux|virtualization|virtualisasi|server/];
+  const rank = patterns.findIndex(pattern => pattern.test(name));
+  return rank < 0 ? patterns.length : rank;
+}
 async function load(type, id) {
  const node = document.getElementById(id); node.textContent = 'Memuat...';
- try { const rows = await fetchCSV(sheetURL(type)); const valid = rows.map((row,index) => ({row,index})).filter(({row}) => validRow(type, row)); node.replaceChildren(); if (!valid.length) { node.textContent = 'Belum ada data.'; return; } for (const {row,index} of valid) node.append(render(type,row,index, type !== 'projects' || projectByTitle(row[0], rows) === index)); if (type === 'skills') for (const {row,index} of valid) { const copy = render(type,row,index); copy.setAttribute('aria-hidden','true'); node.append(copy); } }
+ try { const rows = await fetchCSV(sheetURL(type)); const valid = rows.map((row,index) => ({row,index})).filter(({row}) => validRow(type, row)); if (type === 'projects') valid.sort((a, b) => projectPriority(a.row[0]) - projectPriority(b.row[0]) || a.index - b.index); node.replaceChildren(); if (!valid.length) { node.textContent = 'Belum ada data.'; return; } for (const {row,index} of valid) node.append(render(type,row,index, type !== 'projects' || projectByTitle(row[0], rows) === index)); if (type === 'skills') for (const {row,index} of valid) { const copy = render(type,row,index); copy.setAttribute('aria-hidden','true'); node.append(copy); } }
  catch (_) { showRetry(node, () => load(type,id)); }
 }
 [['projects','wadah-proyek'],['skills','wadah-skill'],['education','wadah-pendidikan'],['courses','wadah-course'],['experience','wadah-experience'],['achievements','wadah-achievement']].forEach(([type,id]) => load(type,id));
