@@ -15,7 +15,7 @@ class Node {
 function setup(page, response) {
   const nodes = {};
   const document = {getElementById: id => nodes[id] ||= new Node(), createElement: tag => new Node(tag), createTextNode: text => ({textContent: text}), addEventListener() {}, removeEventListener() {}};
-  const context = vm.createContext({document, URL, URLSearchParams, AbortController, setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {}, location: {search: '?project=Alpha'}, window: {matchMedia: () => ({matches: false, addEventListener() {}, removeEventListener() {}})}, fetch: response});
+  const context = vm.createContext({document, URL, URLSearchParams, AbortController, setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {}, location: {search: '?project=Alpha'}, window: {addEventListener() {}, removeEventListener() {}, matchMedia: () => ({matches: false, addEventListener() {}, removeEventListener() {}})}, fetch: response});
   for (const file of ['data.js', 'ui.js', page + '.js']) vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, {filename: file});
   return nodes;
 }

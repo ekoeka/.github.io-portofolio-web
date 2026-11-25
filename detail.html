@@ -66,6 +66,22 @@
         </div>
     </main>
 
+    <dialog id="image-lightbox" class="image-lightbox" aria-label="Penampil gambar proyek">
+        <div class="lightbox-toolbar">
+            <span id="lightbox-position" aria-live="polite"></span>
+            <button id="lightbox-zoom-out" type="button" aria-label="Perkecil gambar">−</button>
+            <button id="lightbox-zoom-in" type="button" aria-label="Perbesar gambar">+</button>
+            <button id="lightbox-zoom-reset" type="button" aria-label="Reset zoom">100%</button>
+            <button id="lightbox-close" type="button" aria-label="Tutup penampil gambar">×</button>
+        </div>
+        <button id="lightbox-prev" class="lightbox-arrow lightbox-prev" type="button" aria-label="Gambar sebelumnya">‹</button>
+        <div id="lightbox-stage" class="lightbox-stage">
+            <img id="lightbox-image" alt="" hidden>
+            <p id="lightbox-error" role="status" hidden>Gambar tidak tersedia.</p>
+        </div>
+        <button id="lightbox-next" class="lightbox-arrow lightbox-next" type="button" aria-label="Gambar berikutnya">›</button>
+    </dialog>
+
     <script src="theme.js"></script>
     <script src="data.js"></script>
     <script src="ui.js"></script>

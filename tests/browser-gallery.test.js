@@ -72,6 +72,36 @@ const server = http.createServer((req, res) => {
     await evalJS(`document.querySelector('#project-gallery').dispatchEvent(new MouseEvent('mouseleave')); Object.defineProperty(document,'hidden',{configurable:true,value:true}); document.dispatchEvent(new Event('visibilitychange'))`); await sleep(5600); assert.equal((await state()).position,'1 / 20');
     await evalJS(`Object.defineProperty(document,'hidden',{configurable:true,value:false}); document.dispatchEvent(new Event('visibilitychange'))`); await sleep(5900); assert.equal((await state()).position,'2 / 20');
     }
+    if (!process.env.GALLERY_CASE || process.env.GALLERY_CASE === 'lightbox') {
+    const lightState = () => evalJS(`({open:document.querySelector('#image-lightbox').open, position:document.querySelector('#lightbox-position').textContent, zoom:document.querySelector('#lightbox-zoom-reset').textContent, locked:document.body.style.overflow, failed:!document.querySelector('#lightbox-error').hidden, focused:document.querySelector('#image-lightbox').contains(document.activeElement)})`);
+    const key = async (key, code, keyCode) => { await send('Input.dispatchKeyEvent',{type:'keyDown',key,code,windowsVirtualKeyCode:keyCode,nativeVirtualKeyCode:keyCode}); await send('Input.dispatchKeyEvent',{type:'keyUp',key,code,windowsVirtualKeyCode:keyCode,nativeVirtualKeyCode:keyCode}); };
+    const lightShot = async name => { if (!shots) return; await sleep(300); fs.mkdirSync(shots,{recursive:true}); const r=await send('Page.captureScreenshot',{format:'png'}); fs.writeFileSync(path.join(shots,name),Buffer.from(r.data,'base64')); };
+    await open(4); await evalJS(`document.querySelector('.gallery-slide[data-order="0"]').focus()`); await click('.gallery-slide[data-order="0"]'); await sleep(150);
+    let l = await lightState(); assert.equal(l.open,true); assert.equal(l.position,'1 / 4'); assert.equal(l.locked,'hidden'); assert.equal(l.focused,true);
+    await key('Tab','Tab',9); assert.equal((await lightState()).focused,true);
+    await click('#lightbox-zoom-in'); assert.equal((await lightState()).zoom,'125%');
+    await click('#lightbox-zoom-out'); assert.equal((await lightState()).zoom,'100%');
+    await click('#lightbox-zoom-in'); await click('#lightbox-zoom-reset'); assert.equal((await lightState()).zoom,'100%');
+    await click('#lightbox-next'); assert.equal((await lightState()).position,'2 / 4');
+    await key('ArrowLeft','ArrowLeft',37); assert.equal((await lightState()).position,'1 / 4');
+    await key('ArrowLeft','ArrowLeft',37); assert.equal((await lightState()).position,'4 / 4');
+    await key('Escape','Escape',27); await sleep(100); l=await lightState(); assert.equal(l.open,false); assert.equal(l.locked,'');
+    assert.equal(await evalJS(`document.activeElement.classList.contains('gallery-slide')`),true);
+    await click('.gallery-slide[data-order="0"]'); await evalJS(`document.querySelector('#image-lightbox').click()`); await sleep(100); assert.equal((await lightState()).open,false);
+    await open(1); await click('.gallery-slide[data-order="0"]'); assert.equal(await evalJS(`document.querySelector('#lightbox-next').hidden && getComputedStyle(document.querySelector('#lightbox-next')).display === 'none'`),true); await click('#lightbox-close');
+    await open(2,{bad:true}); await click('.gallery-slide[data-order="0"]'); await sleep(200); assert.equal((await lightState()).failed,true); await click('#lightbox-close');
+    await open(4,{mobile:true,reduced:true}); await click('.gallery-slide[data-order="0"]'); await sleep(150);
+    await evalJS(`(() => { const stage=document.querySelector('#lightbox-stage'); const t=(id,x)=>new Touch({identifier:id,target:stage,clientX:x,clientY:100}); stage.dispatchEvent(new TouchEvent('touchstart',{touches:[t(1,100),t(2,200)],bubbles:true})); stage.dispatchEvent(new TouchEvent('touchmove',{touches:[t(1,75),t(2,225)],bubbles:true,cancelable:true})); stage.dispatchEvent(new TouchEvent('touchend',{touches:[],bubbles:true})); })()`);
+    assert.equal((await lightState()).zoom,'150%'); await click('#lightbox-zoom-reset');
+    await lightShot('lightbox-mobile-dark-fixture.png'); await evalJS(`document.body.classList.remove('dark-mode')`); await lightShot('lightbox-mobile-light-fixture.png');
+    await open(4,{reduced:true}); await click('.gallery-slide[data-order="0"]'); await sleep(150); await lightShot('lightbox-desktop-dark-fixture.png');
+    await evalJS(`document.body.classList.remove('dark-mode')`); await lightShot('lightbox-desktop-light-fixture.png');
+    }
+    if (!process.env.GALLERY_CASE || process.env.GALLERY_CASE === 'lightbox-autoplay') {
+    await open(4); await click('.gallery-slide[data-order="0"]'); await sleep(5600); assert.equal((await state()).position,'1 / 4');
+    await click('#lightbox-close'); await evalJS(`document.activeElement.blur()`); await sleep(5900); assert.equal((await state()).position,'2 / 4');
+    await click('#gallery-toggle'); await click('.gallery-slide[data-order="0"]'); await click('#lightbox-close'); await evalJS(`document.activeElement.blur()`); await sleep(5600); assert.equal((await state()).position,'2 / 4');
+    }
     if (!process.env.GALLERY_CASE || process.env.GALLERY_CASE === 'visual') {
     await open(20,{reduced:true}); await sleep(5900); assert.equal((await state()).position,'1 / 20'); assert.equal(await evalJS(`document.querySelector('#gallery-toggle').hidden && getComputedStyle(document.querySelector('#gallery-toggle')).display === 'none'`),true);
     await click('#gallery-up'); await sleep(100); assert.equal((await state()).position,'2 / 20');
