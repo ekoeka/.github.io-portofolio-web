@@ -35,7 +35,7 @@
 
 ## Revisi UI — Carousel vertikal proyek
 
-- Galeri menampilkan hingga empat gambar desktop dan tiga gambar mobile dengan antrean melingkar, kontrol arah, indikator, autoplay, jeda, dan dukungan reduced motion.
+- Galeri menampilkan gambar utama yang lebih besar, hingga empat gambar desktop dan tiga gambar mobile dengan antrean melingkar, kontrol arah, indikator, autoplay, jeda, dan dukungan reduced motion.
 - Gambar gagal menampilkan placeholder; gambar tunggal tidak menampilkan kontrol. Tes browser menggunakan fixture untuk jumlah gambar dan kondisi kegagalan.
 
 ## P1 — Usability dan aksesibilitas (implementasi lokal)

@@ -53,7 +53,7 @@ const server = http.createServer((req, res) => {
     await open(0); s=await state(); assert.equal(s.placeholder,true); assert.equal(s.controls,false);
     await open(1); s=await state(); assert.equal(s.slides.length,1); assert.equal(s.controls,false);
     await open(2); s=await state(); assert.equal(s.slides.length,2); assert.equal(s.controls,true); await click('#gallery-down'); await sleep(650); assert.equal((await state()).position,'2 / 2'); await click('#gallery-up'); await sleep(650); assert.equal((await state()).position,'1 / 2');
-    await open(4); s=await state(); assert.equal(s.slides.length,4); assert.equal(new Set(s.slides).size,4);
+    await open(4); s=await state(); assert.equal(s.slides.length,4); assert.equal(new Set(s.slides).size,4); assert.equal(await evalJS(`document.querySelector('.gallery-slide[data-order="0"]').offsetHeight >= 420 && document.querySelector('.gallery-slide[data-order="0"]').offsetHeight > document.querySelector('.gallery-slide[data-order="1"]').offsetHeight * 2`),true);
     await open(50); s=await state(); assert.equal(s.slides.length,4); assert.equal(s.overflow,false);
     await open(20,{bad:true}); await sleep(200); s=await state(); assert.equal(s.broken,true); assert.equal(s.slides.length,4); assert.equal(s.overflow,false);
     await evalJS(`document.querySelector('#gallery-up').focus()`); await send('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,nativeVirtualKeyCode:13,text:'\r',unmodifiedText:'\r'}); await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13}); await click('#gallery-up'); await sleep(150); assert.ok(await evalJS(`getComputedStyle(document.querySelector('#gallery-track')).transform !== 'matrix(1, 0, 0, 1, 0, 0)'`)); await sleep(500); s=await state(); assert.equal(s.position,'2 / 20'); assert.equal(s.slides[0],'1');
@@ -77,7 +77,7 @@ const server = http.createServer((req, res) => {
     await click('#gallery-up'); await sleep(100); assert.equal((await state()).position,'2 / 20');
     await open(20,{reduced:true}); await evalJS(`document.body.classList.remove('dark-mode')`); await screenshot('gallery-desktop-light-fixture.png');
     await open(20,{reduced:true}); await screenshot('gallery-desktop-dark-fixture.png');
-    await open(20,{mobile:true,reduced:true}); s=await state(); assert.equal(s.slides.length,3); assert.equal(s.overflow,false); await screenshot('gallery-mobile-dark-fixture.png');
+    await open(20,{mobile:true,reduced:true}); s=await state(); assert.equal(s.slides.length,3); assert.equal(s.overflow,false); assert.equal(await evalJS(`document.querySelector('.gallery-slide[data-order="0"]').offsetHeight > document.querySelector('.gallery-slide[data-order="1"]').offsetHeight`),true); await screenshot('gallery-mobile-dark-fixture.png');
     await evalJS(`document.body.classList.remove('dark-mode')`); await screenshot('gallery-mobile-light-fixture.png');
     }
     assert.deepEqual(errors,[]); ws.close(); console.log('Chromium gallery checks passed');

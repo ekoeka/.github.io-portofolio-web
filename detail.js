@@ -68,11 +68,13 @@ function renderGallery(images, title) {
       track.style.transition = 'none';
       track.style.transform = `translateY(-${step()}px)`;
     }
+    // The outgoing main image shrinks to the smaller row size while the next expands.
+    const distance = direction > 0 ? track.children[1].offsetHeight + 14 : step();
     // Force layout before starting a real vertical translation.
     void track.offsetHeight;
     [...track.children].forEach(slide => { slide.dataset.order = String(Number(slide.dataset.order) - direction); });
     track.style.transition = reduced.matches ? 'none' : 'transform 500ms ease';
-    track.style.transform = direction > 0 ? `translateY(-${step()}px)` : 'translateY(0)';
+    track.style.transform = direction > 0 ? `translateY(-${distance}px)` : 'translateY(0)';
     const finish = () => {
       if (destroyed) return;
       current = indexAt(direction);

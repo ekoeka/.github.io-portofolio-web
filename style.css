@@ -27,7 +27,7 @@ h1,h2,h3,p { margin-top:0; }.hero-main h1 { margin:38px 0 20px; font-size:clamp(
 .bento-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }.kartu-info { min-height:240px; padding:28px; }.card-label { display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding-bottom:18px; }.card-label i { color:var(--accent); font-size:14px; }.kartu-info h3 { font-size:1.45rem; letter-spacing:-.035em; margin:22px 0; }.timeline-item,.item-course { border-top:1px solid var(--line); padding:16px 0; color:var(--muted); font-size:14px; }.timeline-item b,.item-course b { color:var(--text); }.timeline-item p { margin:8px 0; }.item-course { display:flex; gap:14px; align-items:center; }.logo-instansi { width:40px; height:40px; object-fit:contain; background:white; border-radius:4px; padding:4px; }.course-grid { display:flex; flex-direction:column; }
 .site-footer { min-height:100px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:20px; }.sosmed-container { position:fixed; left:12px; bottom:0; z-index:100; display:flex; flex-direction:column; align-items:center; gap:12px; width:40px; }.sosmed-container::after { content:""; width:2px; height:80px; background:var(--muted); opacity:.6; }.ikon-sosmed { color:var(--muted); font-size:20px; }.sosmed-container .ikon-sosmed { display:grid; place-items:center; width:40px; height:40px; transition:color .2s, transform .2s; }.sosmed-container .ikon-sosmed[href]:hover { color:var(--accent); transform:translateY(-3px); }.ikon-sosmed[aria-disabled="true"] { opacity:.55; cursor:default; }
 /* Project detail */
-.project-gallery { min-width:0; --gallery-row-height:clamp(105px, 17vh, 165px); }
+.project-gallery { min-width:0; --gallery-main-height:clamp(420px, 33vw, 500px); --gallery-row-height:clamp(90px, 12vh, 130px); }
 .gallery-controls { display:flex; align-items:center; justify-content:center; gap:14px; padding-bottom:10px; }
 .gallery-controls[hidden], .gallery-controls button[hidden] { display:none; }
 .gallery-controls-bottom { padding:10px 0 0; }
@@ -39,18 +39,18 @@ h1,h2,h3,p { margin-top:0; }.hero-main h1 { margin:38px 0 20px; font-size:clamp(
 #gallery-toggle[aria-pressed="true"]::before { width:0; height:0; border:7px solid transparent; border-left:11px solid currentColor; transform:translateX(5px); }
 .gallery-controls button:hover { border-color:var(--accent); color:var(--accent); }
 #gallery-position { color:var(--muted); font-size:13px; font-variant-numeric:tabular-nums; }
-.gallery-viewport { height:calc(var(--gallery-visible, 0) * var(--gallery-row-height) + (var(--gallery-visible, 0) - 1) * 14px); overflow:hidden; }
+.gallery-viewport { height:calc(var(--gallery-main-height) + (var(--gallery-visible, 1) - 1) * (var(--gallery-row-height) + 14px)); overflow:hidden; }
 .gallery-viewport.is-empty { height:auto; }
 .gallery-track { display:flex; flex-direction:column; gap:14px; will-change:transform; }
-.gallery-slide { position:relative; display:grid; place-items:center; flex:0 0 var(--gallery-row-height); height:var(--gallery-row-height); width:100%; overflow:hidden; padding:0; border:2px solid var(--line); border-radius:6px; background:var(--bg); color:var(--muted); filter:grayscale(1); opacity:.5; transition:filter .5s, opacity .5s, border-color .5s; }
-.gallery-slide[data-order="0"] { filter:none; opacity:1; border-color:var(--accent); }
+.gallery-slide { position:relative; display:grid; place-items:center; flex:0 0 var(--gallery-row-height); height:var(--gallery-row-height); width:100%; overflow:hidden; padding:0; border:2px solid var(--line); border-radius:6px; background:var(--bg); color:var(--muted); filter:grayscale(1); opacity:.5; transition:flex-basis .5s ease, height .5s ease, filter .5s, opacity .5s, border-color .5s; }
+.gallery-slide[data-order="0"] { flex-basis:var(--gallery-main-height); height:var(--gallery-main-height); filter:none; opacity:1; border-color:var(--accent); }
 .gallery-slide[data-order="1"] { opacity:.75; }
 .gallery-slide[data-order="2"] { opacity:.6; }
 .gallery-slide img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
 .gallery-slide [hidden] { display:none; }
 .gallery-image-placeholder,.gallery-placeholder { margin:0; padding:20px; color:var(--muted); text-align:center; font-size:14px; }
 .gallery-slide:focus-visible { outline-offset:-4px; }
-@media(max-width:800px) { .project-gallery { --gallery-row-height:clamp(110px, 22vh, 180px); } }
+@media(max-width:800px) { .project-gallery { --gallery-main-height:clamp(220px, 72vw, 350px); --gallery-row-height:clamp(85px, 14vh, 120px); } }
 
 .layout-golden { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:50px; }.kartu-profile { background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:clamp(24px,5vw,60px); }.area-teks { min-width:0; overflow-wrap:anywhere; }.area-teks h1 { letter-spacing:-.04em; line-height:1.1; }.area-visual { min-width:0; align-self:start; background:var(--surface-2); padding:16px; border:1px solid var(--line); border-radius:6px; }.slider-container { position:relative; aspect-ratio:4/3; overflow:hidden; background:var(--bg); }.slide-img { width:100%; height:100%; object-fit:cover; display:none; }.slide-img.active { display:block; }.area-visual img { max-width:100%; }.area-visual a { padding:10px; border:1px solid var(--line); border-radius:4px; text-align:center; }
 @media(max-width:800px) { .site-header,.container-pusat,.site-footer { width:min(100% - 36px,1320px); }.has-social-sidebar .site-header,.has-social-sidebar .container-pusat,.has-social-sidebar .site-footer { width:calc(100% - 76px); margin-left:60px; margin-right:16px; }.site-header { min-height:78px; gap:16px; flex-wrap:wrap; padding:15px 0; }.main-nav { order:3; width:100%; margin:0; justify-content:space-between; gap:12px; }.tombol-floating { margin-left:auto; }.hero-grid { grid-template-columns:1fr; }.hero-main { min-height:440px; }.hero-side { min-height:330px; }.container-proyek { grid-template-columns:repeat(2,minmax(0,1fr)); }.section-block { padding-top:72px; }.layout-golden { grid-template-columns:minmax(0,1fr); gap:25px; } }
