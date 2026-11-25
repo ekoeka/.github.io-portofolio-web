@@ -28,11 +28,16 @@
 - Konfigurasi tautan CV, GitHub, LinkedIn, dan kontak disiapkan; tautan kosong disembunyikan sampai diverifikasi.
 - Konten dan struktur Sheets tidak diubah. Push pending.
 
+## Revisi UI — Identitas sidebar sosial
+
+- Sidebar kiri bawah, ikon GitHub/LinkedIn/email, dan garis vertikal dikembalikan dengan ruang khusus untuk konten pada desktop dan mobile.
+- GitHub memakai alamat yang diberikan Eka; LinkedIn dan email tetap tidak aktif sampai tujuannya dikonfirmasi.
+
 ## P1 — Usability dan aksesibilitas (implementasi lokal)
 
 - Pilihan tema tersimpan; kontrol tema, landmark, fokus keyboard, status data, dan reduced motion ditingkatkan.
 - Jarak mobile dan media disesuaikan; pengujian browser dan pembaca layar masih diperlukan.
-- Tautan profil dan kontak masih memerlukan tujuan yang diverifikasi bersama Eka.
+- Tautan LinkedIn dan email masih memerlukan tujuan yang diverifikasi bersama Eka.
 
 ## P2 — Maintainability dan performa (implementasi lokal)
 
