@@ -31,8 +31,13 @@
                 </div>
 
                 <div class="area-visual">
-                    <div id="slider-area" class="slider-container" style="display:none;"></div>
-                    <img id="single-img" alt="" style="width:100%; border-radius:10px; display:none;">
+                    <div class="project-gallery" aria-label="Galeri gambar proyek">
+                        <div class="gallery-main">
+                            <img id="gallery-image" alt="" hidden>
+                            <div id="gallery-placeholder" class="gallery-placeholder" role="status">Gambar proyek tidak tersedia.</div>
+                        </div>
+                        <div id="gallery-thumbnails" class="gallery-thumbnails" role="group" aria-label="Pilih gambar proyek" hidden></div>
+                    </div>
                     
                     <div style="margin-top:20px;">
                         
