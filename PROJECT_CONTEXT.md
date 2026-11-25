@@ -11,6 +11,7 @@ Eka is an Electrical Engineering student at Telkom University, interested in emb
 - Google Sheets published as CSV is intended to remain the editable content source. The first Skills column is used as a display group; its actual sheet header and intent still need verification.
 - Six sheets/categories: Projects, Education, Skills, Experience, Achievements, Courses and Certifications.
 - Font Awesome is loaded from CDN.
+- Preserve the original fixed lower-left social sidebar: GitHub, LinkedIn and email icons above a vertical line. Match light/dark themes, reserve room on mobile, and leave unverified destinations inactive.
 - Desired visual direction: professional, modern, restrained engineering aesthetic; black/blue/green palette; readable, responsive, light and dark modes.
 
 ## Project ideas (not verified publication content)
@@ -19,7 +20,7 @@ CNN_FPGA-26; 2-DOF solar tracker; Smart Plant IoT (described as a final project 
 
 ## Constraints
 
-Do not replace the framework, remove working features, change spreadsheet URLs or columns, fabricate portfolio facts, expose unnecessary personal information, or push to `main` without approval. Keep dependencies minimal and make staged changes.
+Do not replace the framework, remove working features, change spreadsheet URLs or columns, fabricate portfolio facts, expose unnecessary personal information, or force-push. Keep dependencies minimal and make staged changes.
 
 ## Audit scope and uncertainty
 
