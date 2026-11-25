@@ -7,7 +7,7 @@
 - Make incremental changes; preserve working features and avoid unnecessary dependencies.
 - At the end of each development phase, run relevant tests, inspect `git status` and `git diff`, and check that credentials, sensitive files, and temporary files are not included.
 - Update `README.md` and `ROADMAP.md` to reflect actual progress, then commit with a clear descriptive message.
-- Push automatically to the current development branch and verify the push. Report the branch, commit hash, commit URL, test results, and remaining issues.
+- Push updates directly to `main` and verify the push, unless Eka requests another branch. Report the branch, commit hash, commit URL, test results, and remaining issues.
 - Merge into `main` and deploy without requesting additional approval when needed for Eka's requested work. Never force-push. If a push fails, report the cause and do not claim success.
 - Stop after each phase and wait for review before beginning the next phase.
 - For implementation tasks, inspect relevant existing code first and describe what was changed and how it was checked. Do not claim checks that were not run.
