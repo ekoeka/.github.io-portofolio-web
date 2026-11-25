@@ -36,7 +36,7 @@
 ## Revisi UI — Galeri proyek
 
 - Halaman detail memakai gambar utama dengan thumbnail yang dapat dipilih dan status aktif yang jelas.
-- Thumbnail tunggal disembunyikan; gambar yang gagal dimuat menampilkan placeholder.
+- Thumbnail tunggal disembunyikan; gambar yang gagal dimuat menampilkan placeholder. Tinggi panel galeri mengikuti konten, termasuk ketika deskripsi proyek panjang.
 
 ## P1 — Usability dan aksesibilitas (implementasi lokal)
 
