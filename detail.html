@@ -31,14 +31,21 @@
                 </div>
 
                 <div class="area-visual">
-                    <div class="project-gallery" aria-label="Galeri gambar proyek">
-                        <div class="gallery-main">
-                            <img id="gallery-image" alt="" hidden>
-                            <div id="gallery-placeholder" class="gallery-placeholder" role="status">Gambar proyek tidak tersedia.</div>
+                    <section id="project-gallery" class="project-gallery" aria-label="Galeri gambar proyek" aria-roledescription="carousel">
+                        <div id="gallery-controls-top" class="gallery-controls" hidden>
+                            <button id="gallery-up" type="button" aria-label="Geser gambar ke atas"></button>
+                            <span id="gallery-position" aria-live="polite"></span>
+                            <button id="gallery-toggle" type="button" aria-label="Jeda putar otomatis"></button>
                         </div>
-                        <div id="gallery-thumbnails" class="gallery-thumbnails" role="group" aria-label="Pilih gambar proyek" hidden></div>
-                    </div>
-                    
+                        <div id="gallery-viewport" class="gallery-viewport">
+                            <div id="gallery-track" class="gallery-track"></div>
+                            <p id="gallery-placeholder" class="gallery-placeholder" role="status" hidden>Gambar proyek tidak tersedia.</p>
+                        </div>
+                        <div id="gallery-controls-bottom" class="gallery-controls gallery-controls-bottom" hidden>
+                            <button id="gallery-down" type="button" aria-label="Geser gambar ke bawah"></button>
+                        </div>
+                    </section>
+
                     <div style="margin-top:20px;">
                         
                         <a id="btn-github" href="#" target="_blank" rel="noopener noreferrer" class="tombol-buka" style="margin-top:10px; display:none;">

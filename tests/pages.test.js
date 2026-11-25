@@ -4,17 +4,18 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 class Node {
-  constructor(tag = '') { this.tag = tag; this.children = []; this.style = {}; this.attributes = {}; this.classList = {add() {}, remove() {}}; }
+  constructor(tag = '') { this.tag = tag; this.children = []; this.style = {setProperty(key, value) { this[key] = value; }}; this.attributes = {}; this.dataset = {}; this.classList = {add() {}, remove() {}, toggle() {}}; }
   append(...nodes) { this.children.push(...nodes); }
   replaceChildren(...nodes) { this.children = nodes; }
   setAttribute(key, value) { this.attributes[key] = value; }
   addEventListener() {}
+  removeEventListener() {}
   remove() {}
 }
 function setup(page, response) {
   const nodes = {};
-  const document = {getElementById: id => nodes[id] ||= new Node(), createElement: tag => new Node(tag), createTextNode: text => ({textContent: text})};
-  const context = vm.createContext({document, URL, URLSearchParams, AbortController, setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {}, location: {search: '?project=Alpha'}, window: {matchMedia: () => ({matches: false})}, fetch: response});
+  const document = {getElementById: id => nodes[id] ||= new Node(), createElement: tag => new Node(tag), createTextNode: text => ({textContent: text}), addEventListener() {}, removeEventListener() {}};
+  const context = vm.createContext({document, URL, URLSearchParams, AbortController, setTimeout, clearTimeout, setInterval: () => 1, clearInterval() {}, location: {search: '?project=Alpha'}, window: {matchMedia: () => ({matches: false, addEventListener() {}, removeEventListener() {}})}, fetch: response});
   for (const file of ['data.js', 'ui.js', page + '.js']) vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, {filename: file});
   return nodes;
 }
@@ -46,31 +47,7 @@ const tick = () => new Promise(resolve => setImmediate(resolve));
   assert.equal(detail.deskripsi.textContent, 'Description');
   assert.equal(detail.tags.children[1].textContent, '<b>two</b>');
   assert.equal(detail['btn-github'].href, 'https://example.com/');
-  const galleryCSV = 'title,summary,description,images,github,date,tags,youtube,journal\nAlpha,Summary,Description,https://example.com/a.png|https://example.com/b.png,,,,,\n';
-  const gallery = setup('detail', async () => ({ok: true, text: async () => galleryCSV}));
-  await tick();
-  const thumbnails = gallery['gallery-thumbnails'];
-  assert.equal(thumbnails.hidden, false);
-  assert.equal(thumbnails.children.length, 2);
-  assert.equal(thumbnails.children[0].attributes['aria-pressed'], 'true');
-  assert.equal(gallery['gallery-image'].src, 'https://example.com/a.png');
-  gallery['gallery-image'].onload();
-  assert.equal(gallery['gallery-placeholder'].hidden, true);
-  thumbnails.children[1].onclick();
-  assert.equal(gallery['gallery-image'].src, 'https://example.com/b.png');
-  assert.equal(thumbnails.children[0].attributes['aria-pressed'], 'false');
-  assert.equal(thumbnails.children[1].attributes['aria-pressed'], 'true');
-  gallery['gallery-image'].onerror();
-  assert.equal(gallery['gallery-placeholder'].textContent, 'Gambar proyek tidak tersedia.');
-  assert.equal(gallery['gallery-placeholder'].hidden, false);
-  thumbnails.children[1].children[0].onerror();
-  assert.equal(thumbnails.children[1].children[1].hidden, false);
-  const singleCSV = galleryCSV.replace('|https://example.com/b.png', '');
-  const single = setup('detail', async () => ({ok: true, text: async () => singleCSV}));
-  await tick();
-  assert.equal(single['gallery-thumbnails'].hidden, true);
-  assert.equal(single['gallery-image'].src, 'https://example.com/a.png');
-  assert.equal(detail['gallery-placeholder'].textContent, 'Gambar proyek tidak tersedia.');
+  assert.equal(detail['gallery-placeholder'].hidden, false);
   let attempts = 0;
   const failed = setup('detail', async () => { attempts++; return {ok: false, status: 500}; });
   await tick();

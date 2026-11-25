@@ -12,6 +12,7 @@ Eka is an Electrical Engineering student at Telkom University, interested in emb
 - Six sheets/categories: Projects, Education, Skills, Experience, Achievements, Courses and Certifications.
 - Font Awesome is loaded from CDN.
 - Preserve the original fixed lower-left social sidebar: GitHub, LinkedIn and email icons above a vertical line. Match light/dark themes, reserve room on mobile, and leave unverified destinations inactive.
+- Project detail gallery preference: vertically stacked large, uncropped images in a bounded circular carousel, four visible on desktop and up to three on mobile, with themed directional controls, accessible autoplay and reduced-motion support.
 - Desired visual direction: professional, modern, restrained engineering aesthetic; black/blue/green palette; readable, responsive, light and dark modes.
 
 ## Project ideas (not verified publication content)

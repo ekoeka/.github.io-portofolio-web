@@ -33,10 +33,10 @@
 - Sidebar kiri bawah, ikon GitHub/LinkedIn/email, dan garis vertikal dikembalikan dengan ruang khusus untuk konten pada desktop dan mobile.
 - GitHub memakai alamat yang diberikan Eka; LinkedIn dan email tetap tidak aktif sampai tujuannya dikonfirmasi.
 
-## Revisi UI — Galeri proyek
+## Revisi UI — Carousel vertikal proyek
 
-- Halaman detail memakai gambar utama dengan thumbnail yang dapat dipilih dan status aktif yang jelas.
-- Thumbnail tunggal disembunyikan; gambar yang gagal dimuat menampilkan placeholder. Tinggi panel galeri mengikuti konten, termasuk ketika deskripsi proyek panjang.
+- Galeri menampilkan hingga empat gambar desktop dan tiga gambar mobile dengan antrean melingkar, kontrol arah, indikator, autoplay, jeda, dan dukungan reduced motion.
+- Gambar gagal menampilkan placeholder; gambar tunggal tidak menampilkan kontrol. Tes browser menggunakan fixture untuk jumlah gambar dan kondisi kegagalan.
 
 ## P1 — Usability dan aksesibilitas (implementasi lokal)
 
@@ -47,7 +47,7 @@
 ## P2 — Maintainability dan performa (implementasi lokal)
 
 - URL sheet dipusatkan tanpa mengubah alamat atau kolom.
-- Logo dan thumbnail mendukung pemuatan tertunda serta penanganan gambar gagal; warna latar menjadi fallback.
+- Logo dan gambar antrean mendukung pemuatan tertunda serta penanganan gambar gagal; warna latar menjadi fallback.
 - Ketergantungan eksternal dan batas cache didokumentasikan. Perilaku browser dan ketersediaan aset live masih perlu diverifikasi.
 
 ## P3 — Search dan dokumentasi
